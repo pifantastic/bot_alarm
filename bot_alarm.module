@@ -27,15 +27,15 @@ function bot_alarm_menu() {
     'title' => 'Bot Alarm',
     'description' => 'Sound the alarm.',
     'page callback' => 'bot_alarm_settings',
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('administer bot'),
     'type' => MENU_NORMAL_ITEM,
   );
   
   $items['admin/settings/bot/alarm/delete/%'] = array(
-    'access arguments' => array('administer bot'),
+    'title' => 'Bot Alarm',
     'page callback' => 'bot_alarm_settings_delete',
     'page arguments' => array(5),
-    'title' => 'Bot Alarm',
+    'access arguments' => array('administer bot'),
     'type' => MENU_CALLBACK,
   );
   
@@ -46,13 +46,7 @@ function bot_alarm_menu() {
  * Table to list alarms and form to add new ones.
  */
 function bot_alarm_settings() {
-  $headers = array(
-    t('Message'),
-    t('Time'),
-    t('Days'),
-    t('Channels'),
-    t('Actions'),
-  );
+  $headers = array(t('Message'), t('Time'), t('Days'), t('Channels'), t('Actions'));
   
   $rows = array();
   
@@ -122,8 +116,8 @@ function bot_alarm_settings_form() {
  * Validate alarm form.
  */
 function bot_alarm_settings_form_validate($form, &$form_state) {
-  if (!preg_match('/\d{1,2}:\d\d/', $form_state['values']['time'])) {
-    form_set_error('time', t('Time must be in the format HH:MM.'));
+  if (!preg_match('/^(0|1|2)?[0-9]:[0-9][0-9]$/', $form_state['values']['time'])) {
+    form_set_error('time', t('Time must be military and in the format HH:MM.'));
   }
 }
 
