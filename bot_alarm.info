@@ -1,0 +1,4 @@
+name = Bot Alarm
+package = Bot
+description = "Set alarms for channels."
+core = 6.x
